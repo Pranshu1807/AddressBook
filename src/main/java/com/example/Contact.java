@@ -16,7 +16,7 @@ public class Contact {
         this.email = email;
     }
 
-    public static void main(String[] args) {
+    public static Contact main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the First Name");
         String firstName = sc.nextLine();
@@ -34,14 +34,6 @@ public class Contact {
         String email = sc.nextLine();
 
         Contact contact = new Contact(firstName, lastName, city, state, zip, phoneNumber, email);
-
-        System.out.println("Address Book");
-        System.out.println("First Name: " + contact.firstName);
-        System.out.println("Last Name: " + contact.lastName);
-        System.out.println("City: " + contact.city);
-        System.out.println("State: " + contact.state);
-        System.out.println("Phone Number: " + contact.phoneNumber);
-        System.out.println("Zip Code: " + contact.zip);
-        System.out.println("Email: " + contact.email);
+        return contact;
     }
 }
