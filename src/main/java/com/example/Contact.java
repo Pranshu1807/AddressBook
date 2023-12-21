@@ -16,7 +16,7 @@ public class Contact {
         this.email = email;
     }
 
-    public static Contact main(String[] args) {
+    public static Contact createContact() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the First Name");
         String firstName = sc.nextLine();

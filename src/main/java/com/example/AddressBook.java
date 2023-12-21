@@ -6,7 +6,7 @@ public class AddressBook {
     public static ArrayList<Contact> ContactsList = new ArrayList<Contact>();
 
     public static void addContact() {
-        Contact contact = Contact.main(null);
+        Contact contact = Contact.createContact();
         ContactsList.add(contact);
         System.out.println("");
     }
