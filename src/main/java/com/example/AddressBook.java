@@ -47,7 +47,6 @@ public class AddressBook {
         System.out.println("Enter the Last Name of the person to be searched");
         String LastName = sc.nextLine();
 
-        ContactsList.stream().filter(obj -> obj.firstName != FirstName);
         boolean found = false;
         for (Contact obj : ContactsList) {
             if (obj.firstName.equals(FirstName) && obj.lastName.equals(LastName)) {
@@ -77,7 +76,7 @@ public class AddressBook {
     }
 
     public static void deleteContact() {
-        System.out.println("Enter the First Name of the person to be searched");
+        System.out.println("Enter the First Name of the person to be deleted");
         String FirstName = sc.nextLine();
         System.out.println("Enter the Last Name of the person to be deleted");
         String LastName = sc.nextLine();
