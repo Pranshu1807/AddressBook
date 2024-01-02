@@ -45,7 +45,7 @@ public class AddressBook {
         }
     }
 
-    public void showContact(Contact contact) {
+    public static void showContact(Contact contact) {
 
         System.out.println("First Name: " + contact.firstName);
         System.out.println("Last Name: " + contact.lastName);

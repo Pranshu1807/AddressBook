@@ -1,11 +1,40 @@
 package com.example;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class MultipleAdressBook {
     static HashMap<String, AddressBook> AddressBookMap = new HashMap<String, AddressBook>();
+
+    public static List<Contact> getContactsByCity(String city) {
+
+        List<Contact> matchedContacts = new ArrayList<>();
+
+        for (Map.Entry<String, AddressBook> entry : AddressBookMap.entrySet()) {
+            List<Contact> matchingPersons = entry.getValue().ContactsList.stream()
+                    .filter(person -> (person.city).equals(city))
+                    .collect(Collectors.toList());
+            matchedContacts.addAll(matchingPersons);
+        }
+        return matchedContacts;
+    }
+
+    public static List<Contact> getContactsByState(String state) {
+
+        List<Contact> matchedContacts = new ArrayList<>();
+
+        for (Map.Entry<String, AddressBook> entry : AddressBookMap.entrySet()) {
+            List<Contact> matchingPersons = entry.getValue().ContactsList.stream()
+                    .filter(person -> (person.state).equals(state))
+                    .collect(Collectors.toList());
+            matchedContacts.addAll(matchingPersons);
+        }
+        return matchedContacts;
+    }
 
     public static void main(String[] args) {
 
@@ -19,6 +48,8 @@ public class MultipleAdressBook {
             System.out.println("Enter 1 to create a new Address Book");
             System.out.println("Enter 2 to get the names of all Address Books");
             System.out.println("Enter 3 to use an existing Address Book using the name of it");
+            System.out.println("Enter 4 to search contacts using city");
+            System.out.println("Enter 5 to search contacts using state");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -95,8 +126,42 @@ public class MultipleAdressBook {
                     }
                     break;
                 }
+                case 4: {
+                    System.out.println("Enter the name of the city");
+                    String city = sc.nextLine();
+
+                    List<Contact> matchedContacts = getContactsByCity(city);
+                    if (matchedContacts.size() == 0) {
+                        System.out.println("No matching contacts");
+                    } else {
+                        int i = 1;
+                        for (Contact contact : matchedContacts) {
+                            System.out.println("Details of contact " + (i));
+                            i++;
+                            AddressBook.showContact(contact);
+                        }
+                    }
+                    break;
+                }
+                case 5: {
+                    System.out.println("Enter the name of the state");
+                    String state = sc.nextLine();
+
+                    List<Contact> matchedContacts = getContactsByState(state);
+                    if (matchedContacts.size() == 0) {
+                        System.out.println("No matching contacts");
+                    } else {
+                        int i = 1;
+                        for (Contact contact : matchedContacts) {
+                            System.out.println("Details of contact " + (i));
+                            i++;
+                            AddressBook.showContact(contact);
+                        }
+                    }
+                    break;
+                }
                 default: {
-                    System.out.println("Enter a value between 0-3");
+                    System.out.println("Enter a value between 0-5");
                     break;
                 }
             }
