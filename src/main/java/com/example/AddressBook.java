@@ -1,6 +1,7 @@
 package com.example;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBook {
@@ -10,7 +11,7 @@ public class AddressBook {
         this.name = name;
     }
 
-    public ArrayList<Contact> ContactsList = new ArrayList<Contact>();
+    public Map<String, Contact> ContactsList = new HashMap<>();
     static Scanner sc;
     static {
         sc = new Scanner(System.in);
@@ -18,8 +19,12 @@ public class AddressBook {
 
     public void addContact() {
         Contact contact = Contact.createContact();
-        ContactsList.add(contact);
-        System.out.println("");
+        String name = contact.firstName + " " + contact.lastName;
+        if (ContactsList.containsKey(name)) {
+            System.out.println("This person already exists");
+            return;
+        }
+        ContactsList.put(name, contact);
     }
 
     public void getContacts() {
@@ -27,11 +32,11 @@ public class AddressBook {
             System.out.println("There are no contacts in the Address Book");
             return;
         }
-        for (int i = 0; i < ContactsList.size(); i++) {
-            Contact contact = ContactsList.get(i);
-            System.out.println("Details of Person " + (i + 1));
-            showContact(contact);
-
+        int i = 1;
+        for (Map.Entry<String, Contact> contact : ContactsList.entrySet()) {
+            System.out.println("Details of Person " + (i));
+            showContact(contact.getValue());
+            i++;
         }
     }
 
@@ -53,32 +58,25 @@ public class AddressBook {
         System.out.println("Enter the Last Name of the person to be searched");
         String LastName = sc.nextLine();
 
-        boolean found = false;
-        for (Contact obj : ContactsList) {
-            if (obj.firstName.equals(FirstName) && obj.lastName.equals(LastName)) {
-                System.out.println("Enter the New First Name ");
-                obj.firstName = sc.nextLine();
-                System.out.println("Enter the New Last Name ");
-                obj.lastName = sc.nextLine();
-                System.out.println("Enter the New City ");
-                obj.city = sc.nextLine();
-                System.out.println("Enter the New State ");
-                obj.state = sc.nextLine();
-                System.out.println("Enter the New Phone Number ");
-                obj.phoneNumber = sc.nextLine();
-                System.out.println("Enter the New Zip Code ");
-                obj.zip = sc.nextLine();
-                System.out.println("Enter the New Email ");
-                obj.email = sc.nextLine();
-                found = true;
-                System.out.println("The updated details are:-");
-                showContact(obj);
-                break;
-            }
-        }
-        if (!found) {
+        String name = FirstName + " " + LastName;
+
+        if (!ContactsList.containsKey(name)) {
             System.out.println("There is no person with this name in the address book");
+            return;
         }
+
+        System.out.println("Enter the New City ");
+        ContactsList.get(name).city = sc.nextLine();
+        System.out.println("Enter the New State ");
+        ContactsList.get(name).state = sc.nextLine();
+        System.out.println("Enter the New Phone Number ");
+        ContactsList.get(name).phoneNumber = sc.nextLine();
+        System.out.println("Enter the New Zip Code ");
+        ContactsList.get(name).zip = sc.nextLine();
+        System.out.println("Enter the New Email ");
+        ContactsList.get(name).email = sc.nextLine();
+        System.out.println("The updated details are:-");
+        showContact(ContactsList.get(name));
     }
 
     public void deleteContact() {
@@ -86,18 +84,13 @@ public class AddressBook {
         String FirstName = sc.nextLine();
         System.out.println("Enter the Last Name of the person to be deleted");
         String LastName = sc.nextLine();
-        boolean flag = false;
-        for (int i = 0; i < ContactsList.size(); i++) {
-            if (ContactsList.get(i).firstName.equals(FirstName) && ContactsList.get(i).lastName.equals(LastName)) {
-                ContactsList.remove(i);
-                System.out.println("Deleted Succesfully");
-                System.out.println("");
-                flag = true;
-                break;
-            }
-        }
-        if (!flag)
+        String name = FirstName + " " + LastName;
+        if (!ContactsList.containsKey(name)) {
             System.out.println("There is no person with this name in the address book");
+            return;
+        }
+        ContactsList.remove(name);
+        System.out.println("Contact deleted Successfully");
     }
 
     public static AddressBook createAddressBook(String name) {
