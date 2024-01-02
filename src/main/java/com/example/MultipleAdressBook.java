@@ -50,6 +50,8 @@ public class MultipleAdressBook {
             System.out.println("Enter 3 to use an existing Address Book using the name of it");
             System.out.println("Enter 4 to search contacts using city");
             System.out.println("Enter 5 to search contacts using state");
+            System.out.println("Enter 6 to number of contacts of a city");
+            System.out.println("Enter 7 to number of contacts of a state");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -158,6 +160,22 @@ public class MultipleAdressBook {
                             AddressBook.showContact(contact);
                         }
                     }
+                    break;
+                }
+                case 6: {
+                    System.out.println("Enter the name of the city");
+                    String city = sc.nextLine();
+
+                    List<Contact> matchedContacts = getContactsByCity(city);
+                    System.out.println("Number of contacts in city " + city + " is " + matchedContacts.size());
+                    break;
+                }
+                case 7: {
+                    System.out.println("Enter the name of the state");
+                    String state = sc.nextLine();
+
+                    List<Contact> matchedContacts = getContactsByState(state);
+                    System.out.println("Number of contacts in state " + state + " is " + matchedContacts.size());
                     break;
                 }
                 default: {
