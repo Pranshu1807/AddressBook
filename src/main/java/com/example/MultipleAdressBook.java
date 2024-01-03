@@ -48,6 +48,39 @@ public class MultipleAdressBook {
         }
     }
 
+    public static void sortByCity(String Name) {
+        if (!AddressBookMap.containsKey(Name)) {
+            System.out.println("No address Book exists by this name");
+        } else {
+            Collections.sort(AddressBookMap.get(Name).ContactsList,
+                    (Contact1, Contact2) -> Contact1.city.compareTo(Contact2.city));
+            System.out.println("Address Book after sorting\n");
+            AddressBookMap.get(Name).getContacts();
+        }
+    }
+
+    public static void sortByState(String Name) {
+        if (!AddressBookMap.containsKey(Name)) {
+            System.out.println("No address Book exists by this name");
+        } else {
+            Collections.sort(AddressBookMap.get(Name).ContactsList,
+                    (Contact1, Contact2) -> Contact1.state.compareTo(Contact2.state));
+            System.out.println("Address Book after sorting\n");
+            AddressBookMap.get(Name).getContacts();
+        }
+    }
+
+    public static void sortByZip(String Name) {
+        if (!AddressBookMap.containsKey(Name)) {
+            System.out.println("No address Book exists by this name");
+        } else {
+            Collections.sort(AddressBookMap.get(Name).ContactsList,
+                    (Contact1, Contact2) -> Contact1.zip.compareTo(Contact2.zip));
+            System.out.println("Address Book after sorting\n");
+            AddressBookMap.get(Name).getContacts();
+        }
+    }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -65,6 +98,9 @@ public class MultipleAdressBook {
             System.out.println("Enter 6 to number of contacts of a city");
             System.out.println("Enter 7 to number of contacts of a state");
             System.out.println("Enter 8 to sort an address book by its name");
+            System.out.println("Enter 9 to sort an address book by its city");
+            System.out.println("Enter 10 to sort an address book by its state");
+            System.out.println("Enter 11 to sort an address book by its zip");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -195,10 +231,31 @@ public class MultipleAdressBook {
                     System.out.println("Enter the name of the book");
                     String name = sc.nextLine();
                     sortByName(name);
+                    break;
 
                 }
+                case 9: {
+                    System.out.println("Enter the name of the book");
+                    String name = sc.nextLine();
+                    sortByCity(name);
+                    break;
+
+                }
+                case 10: {
+                    System.out.println("Enter the name of the book");
+                    String name = sc.nextLine();
+                    sortByState(name);
+                    break;
+
+                }
+                case 11: {
+                    System.out.println("Enter the name of the book");
+                    String name = sc.nextLine();
+                    sortByZip(name);
+                    break;
+                }
                 default: {
-                    System.out.println("Enter a value between 0-8");
+                    System.out.println("Enter a value between 0-11");
                     break;
                 }
             }
