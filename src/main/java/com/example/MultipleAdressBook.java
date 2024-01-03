@@ -1,6 +1,7 @@
 package com.example;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,17 @@ public class MultipleAdressBook {
         return matchedContacts;
     }
 
+    public static void sortByName(String Name) {
+        if (!AddressBookMap.containsKey(Name)) {
+            System.out.println("No address Book exists by this name");
+        } else {
+            Collections.sort(AddressBookMap.get(Name).ContactsList,
+                    (Contact1, Contact2) -> Contact1.firstName.compareTo(Contact2.firstName));
+            System.out.println("Address Book after sorting\n");
+            AddressBookMap.get(Name).getContacts();
+        }
+    }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -52,6 +64,7 @@ public class MultipleAdressBook {
             System.out.println("Enter 5 to search contacts using state");
             System.out.println("Enter 6 to number of contacts of a city");
             System.out.println("Enter 7 to number of contacts of a state");
+            System.out.println("Enter 8 to sort an address book by its name");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -178,8 +191,14 @@ public class MultipleAdressBook {
                     System.out.println("Number of contacts in state " + state + " is " + matchedContacts.size());
                     break;
                 }
+                case 8: {
+                    System.out.println("Enter the name of the book");
+                    String name = sc.nextLine();
+                    sortByName(name);
+
+                }
                 default: {
-                    System.out.println("Enter a value between 0-5");
+                    System.out.println("Enter a value between 0-8");
                     break;
                 }
             }
